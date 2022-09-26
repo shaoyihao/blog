@@ -1,0 +1,224 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>归并排序 | SYH&#39;s Blog</title>
+
+<link rel="shortcut icon" href="https://shaoyihao.github.io/blog//favicon.ico?v=1664201656961">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shaoyihao.github.io/blog//styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="https://shaoyihao.github.io/blog//images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            SYH&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/ " class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//archives" class="menu gt-a-link">
+                            时间轴
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/aboutme" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664201656961" action="https://shaoyihao.github.io/blog//search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    归并排序
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-09-05 ·
+                    </time>
+                    
+                        <a href="https://shaoyihao.github.io/blog/C8jTnsHs8/" class="post-tags">
+                            # 排序
+                        </a>
+                    
+                        <a href="https://shaoyihao.github.io/blog/O4BIFblmXJ/" class="post-tags">
+                            # 模板
+                        </a>
+                    
+                        <a href="https://shaoyihao.github.io/blog/ZTyqKdNcq/" class="post-tags">
+                            # 分治
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>归并排序的主要思想也是<strong>分治</strong>，基本问题为：<strong>两个有序数组的合并</strong>。</p>
+<p>主要步骤：</p>
+<ul>
+<li>以数组中心（下标的中心）为分界点：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>i</mi><mi>d</mi><mo>=</mo><mfrac><mrow><mi>l</mi><mo>+</mo><mi>r</mi></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">mid = \frac {l+r} {2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></li>
+<li>递归排序左边与右边</li>
+<li>归并，将两个有序的数组合并为一个有序的数组<br>
+<img src="https://img-blog.csdnimg.cn/20210704224105645.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NoYW9feWloYW8=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" loading="lazy"></li>
+</ul>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+const int N = 1e6 +10;
+
+int n;
+int q[N], tmp[N];//需要另外开一个数组暂时存放正确顺序的数列 
+
+void merge_sort(int q[], int l, int r)
+{
+	if (l &gt;= r) return;//递归的结束条件：子数组中只含一个元素或者不含元素时，递归到底了
+
+	int mid = (l + r) / 2;//取数组中点为界限，分为左右两段 
+	merge_sort(q, l, mid), merge_sort(q, mid + 1, r);//对左右两段进行归并排序 （先递归） 
+	//此时q[l ~ mid]、q[mid+1 ~ r]均为有序数组
+	
+	//将已经排好序的两段合在一起 
+	int i = l, j = mid + 1, k = 0; //i、j分别指向两个子数列的首端（也是各自数列中的最小值） 
+	while (i &lt;= mid &amp;&amp; j &lt;= r) //两个指针都还没到各自的结尾时 
+	{                        //两个指针所指的数，分别是各自子数组里的最小值，因此这两个数中的最小值即是剩下的数中的最小值 
+		if (q[i] &lt;= q[j]) 
+			tmp[k ++] = q[i ++];//将这两个数中的较小值（即剩下的数中的最小值）存入tmp数组 
+		else 
+			tmp[k ++] = q[j ++];
+	}
+	//循环结束，说明至少有一个指针已经到了尽头，则另一个数组中剩下的数就是最大的几个数，直接将剩下的数按顺序接到tmp中即可 
+	while (i &lt;= mid) tmp[k ++] = q[i ++];
+	while (j &lt;= r)   tmp[k ++] = q[j ++];
+	
+	//将tmp[0 ~ k]复制到q[l ~ r]，使q[l~r]有序
+	for (i = l, k = 0; i &lt;= r; i ++, k ++) q[i] = tmp[k]; 
+}
+
+int main()
+{
+	scanf(&quot;%d&quot;, &amp;n);
+	int q[n];
+	for (int i = 0; i &lt; n; i ++)
+		scanf(&quot;%d&quot;, &amp;q[i]);
+		
+	merge_sort(q, 0, n - 1);//调用归并排序函数，传入的是数组的下标区间 [0, n-1] 
+	
+	for (int i = 0; i &lt; n; i ++)
+		printf(&quot;%d &quot;, q[i]);
+	return 0;
+ } 
+</code></pre>
+<blockquote>
+<p><a href="https://shaoyihao.github.io/blog/mergeSort2/">归并排序的非递归实现</a></p>
+</blockquote>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shaoyihao.github.io/blog/快速选择/" class="post-title gt-a-link">
+                    快速选择
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ©All rights reserved
+    </div>
+    <!-- <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shaoyihao.github.io/blog//atom.xml" target="_blank">RSS</a></a>
+    </div> -->
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

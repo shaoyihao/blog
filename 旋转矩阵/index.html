@@ -1,0 +1,296 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>旋转矩阵 | SYH&#39;s Blog</title>
+
+<link rel="shortcut icon" href="https://shaoyihao.github.io/blog//favicon.ico?v=1664201656961">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shaoyihao.github.io/blog//styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="https://shaoyihao.github.io/blog//images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            SYH&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/ " class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//archives" class="menu gt-a-link">
+                            时间轴
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/aboutme" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664201656961" action="https://shaoyihao.github.io/blog//search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    旋转矩阵
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-09-09 ·
+                    </time>
+                    
+                        <a href="https://shaoyihao.github.io/blog/RY2D2zS77/" class="post-tags">
+                            # 模拟
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <blockquote>
+<p><a href="https://www.luogu.com.cn/problem/P4924">原题链接：旋转矩阵</a></p>
+<p>题目大意：给定一个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n\times n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 的矩阵，对于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>r</mi><mo separator="true">,</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">x,y,r,z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span></span></span></span>，把以第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 行第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span> 列的元素为中心的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>r</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2r+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 阶矩阵按照某种时针方向旋转（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>z</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">z=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 表示顺时针，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>z</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">z=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 表示逆时针）。</p>
+</blockquote>
+<p><strong>思路</strong>：</p>
+<figure data-type="image" tabindex="1"><img src="https://shaoyihao.github.io/blog//post-images/1662729205394.jpeg" alt="" loading="lazy"></figure>
+<p>在模拟时，如果是<strong>在原矩阵上直接进行覆盖</strong>，则一定要注意<strong>覆盖的顺序</strong>：因为2条邻边之间共享了一个元素（拐角元素）。</p>
+<figure data-type="image" tabindex="2"><img src="https://shaoyihao.github.io/blog//post-images/1662729214684.jpeg" alt="" loading="lazy"></figure>
+<blockquote>
+<p>正确的覆盖顺序也是一种非常符合直觉的方式。（脑中动态模拟一下）</p>
+</blockquote>
+<p>事实上只要前<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span>边的覆盖满足上述顺序即可，最后一条边可以不必这样，因为最后一条边已经是所剩唯一还没被处理的边，覆盖它不会影响到其他边。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+const int N = 510;
+int g[N][N];
+
+void f(int x, int y, int r, int z)
+{
+    int tmp[2 * r + 1];
+    for (int i = 0; i &lt; 2 * r + 1; i ++)
+        tmp[i] = g[x - r][y - r + i];  //暂存一条边，因为该边接下来会被覆盖
+
+    if (z == 1) //逆时针
+    {
+        for (int i = 0; i &lt; 2 * r + 1; i ++) //上
+            g[x - r][y - r + i] = g[x - r + i][y + r];
+        for (int i = 0; i &lt; 2 * r + 1; i ++) //右
+            g[x - r + i][y + r] = g[x + r][y + r - i];
+        for (int i = 0; i &lt; 2 * r + 1; i ++) //下
+            g[x + r][y + r - i] = g[x + r - i][y - r];
+        for (int i = 0; i &lt; 2 * r + 1; i ++) //左
+            g[x + r - i][y - r] = tmp[i];
+    }
+    else //顺时针
+    {
+        for (int i = 0; i &lt; 2 * r + 1; i ++) //上
+            g[x - r][y + r - i] = g[x - r + i][y - r];
+        for (int i = 0; i &lt; 2 * r + 1; i ++) //左
+            g[x - r + i][y - r] = g[x + r][y - r + i];
+        for (int i = 0; i &lt; 2 * r + 1; i ++) //下
+            g[x + r][y - r + i] = g[x + r - i][y + r];
+        for (int i = 0; i &lt; 2 * r + 1; i ++) //右
+            g[x - r + i][y + r] = tmp[i]; //最后一条边随意些也无妨
+    }
+}
+
+int main()
+{
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    for (int i = 1, idx = 1; i &lt;= n; i ++)
+        for (int j = 1; j &lt;= n; j ++) 
+            g[i][j] = idx ++;
+    
+    while (m --)
+    {
+        int x, y, r, z;
+        cin &gt;&gt; x &gt;&gt; y &gt;&gt; r &gt;&gt; z;
+        while (r) //一个矩阵可以视作是多个“环”
+        {
+            f(x, y, r, z);
+            r --;
+        }
+    }
+
+    for (int i = 1; i &lt;= n; i ++)
+    {
+        for (int j = 1; j &lt;= n; j ++) cout &lt;&lt; g[i][j] &lt;&lt; ' ';
+        puts(&quot;&quot;);
+    }
+    return 0;
+}
+</code></pre>
+<p>当然，如果每次都将矩阵拷贝一遍，再进行复制，那么就不必考虑可能覆盖的问题了。使用了额外空间，但是逻辑上更加清晰了。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+const int N = 510;
+int g[N][N], g2[N][N];
+
+void f(int x, int y, int r, int z)
+{
+    if (z == 1) //逆时针
+    {
+        for (int i = 0; i &lt; 2 * r + 1; i ++)  //上
+            g[x - r][y - r + i] = g2[x - r + i][y + r];
+        for (int i = 0; i &lt; 2 * r + 1; i ++)  //右
+            g[x - r + i][y + r] = g2[x + r][y + r - i];
+        for (int i = 0; i &lt; 2 * r + 1; i ++)  //下
+            g[x + r][y - r + i] = g2[x - r + i][y - r];
+        for (int i = 0; i &lt; 2 * r + 1; i ++)  //左
+            g[x - r + i][y - r] = g2[x  - r][y + r - i];
+    }
+    else //顺时针
+    {
+        for (int i = 0; i &lt; 2 * r + 1; i ++)  //上
+            g[x - r][y - r + i] = g2[x + r - i][y - r];
+        for (int i = 0; i &lt; 2 * r + 1; i ++)  //左
+            g[x - r + i][y - r] = g2[x + r][y - r + i];
+        for (int i = 0; i &lt; 2 * r + 1; i ++)  //下
+            g[x + r][y - r + i] = g2[x + r - i][y + r];
+        for (int i = 0; i &lt; 2 * r + 1; i ++)  //右  
+            g[x - r + i][y + r] = g2[x - r][y - r + i];
+    }
+}
+
+int main()
+{
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    for (int i = 1, idx = 1; i &lt;= n; i ++)
+        for (int j = 1; j &lt;= n; j ++) 
+            g[i][j] = idx ++;
+    
+    while (m --)
+    {
+        memcpy(g2, g, sizeof(g)); //拷贝当前矩阵的状态
+        
+        int x, y, r, z;
+        cin &gt;&gt; x &gt;&gt; y &gt;&gt; r &gt;&gt; z;
+        while (r) //旋转该矩阵：一个矩阵可以视作是多个“环”
+        {
+            f(x, y, r, z); // 旋转一个环
+            r --;
+        }
+    }
+
+    for (int i = 1; i &lt;= n; i ++)
+    {
+        for (int j = 1; j &lt;= n; j ++) cout &lt;&lt; g[i][j] &lt;&lt; ' ';
+        puts(&quot;&quot;);
+    }
+    return 0;
+}
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shaoyihao.github.io/blog/扫雷/" class="post-title gt-a-link">
+                    扫雷
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ©All rights reserved
+    </div>
+    <!-- <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shaoyihao.github.io/blog//atom.xml" target="_blank">RSS</a></a>
+    </div> -->
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

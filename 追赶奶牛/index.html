@@ -1,0 +1,265 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>追赶奶牛 | SYH&#39;s Blog</title>
+
+<link rel="shortcut icon" href="https://shaoyihao.github.io/blog//favicon.ico?v=1664201656961">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shaoyihao.github.io/blog//styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="https://shaoyihao.github.io/blog//images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            SYH&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/ " class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//archives" class="menu gt-a-link">
+                            时间轴
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/aboutme" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664201656961" action="https://shaoyihao.github.io/blog//search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    追赶奶牛
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-09-10 ·
+                    </time>
+                    
+                        <a href="https://shaoyihao.github.io/blog/DIJJl1eXw/" class="post-tags">
+                            # 网格图
+                        </a>
+                    
+                        <a href="https://shaoyihao.github.io/blog/RY2D2zS77/" class="post-tags">
+                            # 模拟
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <blockquote>
+<p><a href="https://www.luogu.com.cn/problem/P1518">原题链接：追赶奶牛</a></p>
+<p>题目大意：给定 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>10</mn><mo>×</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">10\times 10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span></span></span></span> 的网格图，农夫追赶奶牛，每遇到障碍边顺时针转向90°，初始时都向北（上），判断农夫需要多久才能追上奶牛。</p>
+</blockquote>
+<p>思路：先定义4个方向：</p>
+<pre><code class="language-cpp">int dx[] = {-1, 0, 1, 0}, dy[] = {0, 1, 0, -1};
+</code></pre>
+<p>用变量 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">d</span></span></span></span> 表示当前的方向，若需要顺时针转向，就：<code>d = (d + 1) % 4</code> 。</p>
+<p>关键在于如何判断能否追上？</p>
+<p>若将每个时刻农夫和奶牛所处的位置和方向视为一种状态，则若某个状态第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>次出现，就说明状态出现了循环，那么将永远也无法追上。</p>
+<p>方法就是**将农夫和奶牛的位置、方向 共 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span></span></span></span> 个变量构成的元组 映射到一个唯一值，判断该哈希值是否出现过即可。**哈希方式可以使用进制转化的思想，因为这6个变量的范围均小于11，因此可以将这6个变量视为一个11进制数，转化为十进制就是相应的哈希值。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, 1, 0, -1};
+
+char g[12][12];
+bool st[1000000];
+
+int main()
+{
+    int x, y, a, b;
+    for (int i = 1; i &lt;= 10; i ++)
+        for (int j = 1; j &lt;= 10; j ++) 
+        {
+            cin &gt;&gt; g[i][j];
+            if (g[i][j] == 'F') x = i, y = j, g[i][j] = '.';
+            if (g[i][j] == 'C') a = i, b = j, g[i][j] = '.';
+        }
+        
+    bool flag = true;
+    int cnt = 0, d1 = 0, d2 = 0;
+    while (x != a || y != b)
+    {
+        int x2 = x + dx[d1], y2 = y + dy[d1];
+        if (1 &lt;= x2 &amp;&amp; x2 &lt;= 10 &amp;&amp; 1 &lt;= y2 &amp;&amp; y2 &lt;= 10 &amp;&amp; g[x2][y2] == '.') x = x2, y = y2;
+        else d1 = (d1 + 1) % 4;
+
+        int a2 = a + dx[d2], b2 = b + dy[d2];
+        if (1 &lt;= a2 &amp;&amp; a2 &lt;= 10 &amp;&amp; 1 &lt;= b2 &amp;&amp; b2 &lt;= 10 &amp;&amp; g[a2][b2] == '.') a = a2, b = b2;
+        else d2 = (d2 + 1) % 4;
+
+        int hash = x + y * 11 + a * 11 * 11 + b * 11 * 11 * 11 + d1 * 11 * 11 * 11 * 11 + d2 * 11 * 11 * 11 * 11 * 11;
+        if (st[hash] == false) 
+        {
+            st[hash] = true;
+            cnt ++;
+        }
+        else 
+        {
+            flag = false;
+            break;
+        }
+    }
+
+    if (flag == false) cout &lt;&lt; 0;
+    else cout &lt;&lt; cnt;
+    return 0;
+}
+</code></pre>
+<h3 id="另一种方法">另一种方法</h3>
+<p>由于地图规模只有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>10</mn><mo>×</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">10\times 10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span></span></span></span>，因此牛和农夫分别各有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>400</mn></mrow><annotation encoding="application/x-tex">400</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">0</span></span></span></span>种状态（100×4），整体上即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>400</mn><mo>×</mo><mn>400</mn><mo>=</mo><mn>160000</mn></mrow><annotation encoding="application/x-tex">400\times400=160000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span>种状态。<strong>农夫和牛的每一次移动都是一次状态的变化，若移动次数大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>160000</mn></mrow><annotation encoding="application/x-tex">160000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span>，则必然存在某状态的重复</strong>，也就意味着永远追不上。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+int dx[] = {-1, 0, 1, 0}, dy[] = {0, 1, 0, -1};
+
+char g[12][12];
+
+void move(int&amp; x, int&amp; y, int&amp; d)
+{
+    int a = x + dx[d], b = y + dy[d];
+    if (a &gt;= 0 &amp;&amp; a &lt; 10 &amp;&amp; b &gt;= 0 &amp;&amp; b &lt; 10 &amp;&amp; g[a][b] == '.') x = a, y = b;
+    else d = (d + 1) % 4;
+}
+
+int main()
+{
+    int x1, y1, x2, y2;
+    for (int i = 0; i &lt; 10; i ++)
+        for (int j = 0; j &lt; 10; j ++)
+        {
+            cin &gt;&gt; g[i][j];
+            if (g[i][j] == 'F') x1 = i, y1 = j, g[i][j] = '.';
+            else if (g[i][j] == 'C') x2 = i, y2 = j, g[i][j] = '.';
+        }
+            
+    int d1 = 0, d2 = 0, cnt = 0;
+    while (cnt &lt;= 160000)
+    {
+        move(x1, y1, d1);
+        move(x2, y2, d2);
+        cnt ++;
+        
+        if (x1 == x2 &amp;&amp; y1 == y2)
+        {
+            cout &lt;&lt; cnt &lt;&lt; endl;
+            return 0;
+        }
+    }
+
+    cout &lt;&lt; 0 &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shaoyihao.github.io/blog/猜拳/" class="post-title gt-a-link">
+                    猜拳
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ©All rights reserved
+    </div>
+    <!-- <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shaoyihao.github.io/blog//atom.xml" target="_blank">RSS</a></a>
+    </div> -->
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

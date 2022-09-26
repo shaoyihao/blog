@@ -1,0 +1,217 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>替换空格 | SYH&#39;s Blog</title>
+
+<link rel="shortcut icon" href="https://shaoyihao.github.io/blog//favicon.ico?v=1664201656961">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shaoyihao.github.io/blog//styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="https://shaoyihao.github.io/blog//images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            SYH&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/ " class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//archives" class="menu gt-a-link">
+                            时间轴
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/aboutme" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664201656961" action="https://shaoyihao.github.io/blog//search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    替换空格
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-09-13 ·
+                    </time>
+                    
+                        <a href="https://shaoyihao.github.io/blog/_ryZST3v0/" class="post-tags">
+                            # 双指针
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <blockquote>
+<p><a href="https://www.acwing.com/problem/content/description/17/">原题链接：替换空格</a></p>
+<p>题目大意：请实现一个函数，把字符串中的每个空格替换成<code>&quot;%20&quot;</code></p>
+</blockquote>
+<h3 id="线性扫描-on">(线性扫描) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></h3>
+<p>这个题在 C++ 里比较好做，我们可以从前往后枚举原字符串：</p>
+<ul>
+<li>如果遇到空格，则在 string 类型的答案中添加 <code>&quot;%20&quot;</code></li>
+<li>如果遇到其他字符，则直接将它添加在答案中</li>
+</ul>
+<pre><code class="language-cpp">string replaceSpaces(string &amp;str) 
+{
+    string res;
+    for (auto x : str)
+        if (x == ' ') res += &quot;%20&quot;;
+        else res += x;
+    return res;
+}
+</code></pre>
+<p>但在 C 语言中，我们没有 string 这种好用的模板，需要自己 malloc 出 char 数组来存储答案。<br>
+此时我们就需要分成三步来做：</p>
+<ol>
+<li>遍历一遍原字符串，计算出答案的最终长度；</li>
+<li>malloc 出该长度的 char 数组；</li>
+<li>再遍历一遍原字符串，计算出最终的答案数组；</li>
+</ol>
+<h3 id="双指针扫描-on">(双指针扫描) <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></h3>
+<p>优点：<strong>需要的额外空间很少，空间复杂度低</strong>。</p>
+<p>在部分编程语言中，我们可以动态地将原数组长度扩大，此时我们就可以使用双指针算法，来降低空间的使用：</p>
+<ol>
+<li>首先遍历一遍原数组，求出最终答案的长度 length；</li>
+<li>将原数组 <strong>resize</strong> 成 length 大小；</li>
+<li>使用两个指针，指针<code>i</code>指向原字符串的末尾，指针<code>j</code>指向 length 的位置；</li>
+<li>两个指针分别<strong>都从后往前遍历</strong>，<br>
+如果<code>str[i] == ' '</code>，则指针<code>j</code>的位置上依次填充<code>'0', '2', '%'</code>，这样倒着看就是<code>&quot;%20&quot;</code>；<br>
+如果<code>str[i] != ' '</code>，则指针<code>j</code>的位置上填充该字符即可。</li>
+</ol>
+<p>由于变换之后的字符串长度一定不小于原字符串，所以遍历过程中总存在<code>i &lt;= j</code>，这样可以保证<code>str[j]</code>不会覆盖还未遍历过的<code>str[i]</code>。</p>
+<pre><code class="language-cpp">string replaceSpaces(string &amp;str) 
+{
+	int len = 0, temp = str.size();
+    for (char c : str)
+        if (c == ' ') len += 3;
+        else len += 1;
+	str.resize(len);
+	
+	for (int i = temp - 1, j = len - 1; i &gt;= 0; i --)
+	{
+		if (str[i] == ' ')
+        {
+	        str[j --] = '0';
+	        str[j --] = '2';
+            str[j --] = '%';
+		}
+        else str[j --] = str[i];
+	}
+	return str;
+}
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shaoyihao.github.io/blog/最长连续不重复子列/" class="post-title gt-a-link">
+                    最长连续不重复子列
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ©All rights reserved
+    </div>
+    <!-- <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shaoyihao.github.io/blog//atom.xml" target="_blank">RSS</a></a>
+    </div> -->
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

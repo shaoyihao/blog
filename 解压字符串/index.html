@@ -1,0 +1,325 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>解压字符串 | SYH&#39;s Blog</title>
+
+<link rel="shortcut icon" href="https://shaoyihao.github.io/blog//favicon.ico?v=1664201656961">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shaoyihao.github.io/blog//styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="https://shaoyihao.github.io/blog//images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            SYH&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/ " class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//archives" class="menu gt-a-link">
+                            时间轴
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/aboutme" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664201656961" action="https://shaoyihao.github.io/blog//search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    解压字符串
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-08-31 ·
+                    </time>
+                    
+                        <a href="https://shaoyihao.github.io/blog/403zHyzYL/" class="post-tags">
+                            # 递归
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <blockquote>
+<p><a href="https://www.luogu.com.cn/problem/P1928">原题链接：外星密码</a></p>
+<p>题目大意：对于连续的若干个相同的子串 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 会压缩为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">nS</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 的形式（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 是一个整数且 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mn>99</mn></mrow><annotation encoding="application/x-tex">1\leq n\leq99</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span><span class="mord">9</span></span></span></span>），例如：字符串  <code>CBCBCBCB</code> 就压缩为 <code>[4CB]</code> 或者 <code>[2[2CB]]</code>，后面这种压缩之后再压缩的称为二重压缩（给定的数据最多只有十重压缩）。给定一个被压缩后的字符串，输出原本完整的字符串。</p>
+</blockquote>
+<p>思路：这种具有递归形式的题目显然应递归求解。</p>
+<p>题目所给定的字符串<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>t</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">Str</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>宏观上可以视作：<code>cc[S]cc[S]cc</code>，宏观上该字符串的解压过程就是：<code>cc</code>+<code>S的解压字符串</code>+<code>cc</code>+<code>S的解压字符串</code>+<code>cc</code>。因此只需编写一个用于解压 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 的函数即可。</p>
+<p>在此之前我们需要先将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 从整个字符串中取出。由于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 是由<code>[]</code>包围着的且 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 中可能也含有嵌套的 <code>[]</code>，因此取出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 的关键就是如何找到最外层的 <code>[]</code> 。此处采用了栈，用的是“<strong>括号匹配</strong>”的思想。</p>
+<pre><code class="language-cpp">string substr(string str, int t) // str下标t处为'['，返回后面紧跟的S
+{
+    string sub;
+
+    stack&lt;char&gt; op;
+    op.push(str[t]); //将 S 前面的 '[' 入栈
+    for (int i = t + 1; i &lt; str.size(); i ++) //遍历后面的字符，直到遇到上面'['所匹配的']'
+    {
+        if (str[i] == '[') op.push(str[i]);
+        else if (str[i] == ']' &amp;&amp; op.size() &gt; 1) op.pop(); //嵌套
+        else if (str[i] == ']' &amp;&amp; op.size() == 1) break; //遇到了
+
+        sub += str[i]; //将'['和']'之间的所有字符都存储下来
+    }
+    
+    return sub;
+}
+</code></pre>
+<p>取出 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>，接下来就要考虑如何对其进行解压。注意到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 的形式大概是 <code>Ncc[S']cc[S']cc</code>，即一个数字<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>后面再跟着一个字符串，而这个字符串中可能也包含需要解压的部分，而解压它与解压 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 是完全相同的过程，可见这是一个<strong>递归</strong>解压的过程。不过不必想的太过复杂，我们只需做好当下即可。</p>
+<p>首先将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 中的数字 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span> 取出：</p>
+<pre><code class="language-cpp">int t = 0, N = 0;
+while (isdigit(str[t]))
+{
+    N = N * 10 + str[t] - '0';
+    t ++;
+}
+// 取出数字N，且此时t指向首个非数字字符
+</code></pre>
+<blockquote>
+<p><strong>字符串中的数字要特别关注，因为一个数字可能有好几位，多个字符。</strong></p>
+</blockquote>
+<p>遍历后面的字符，若遇到普通字母，则直接加入结果，若遇到<code>[</code>，则再取出后面的子串进行解压，将解压结果加入结果。</p>
+<pre><code class="language-cpp">for (int i = t; i &lt; str.size(); i ++)
+    if (isalpha(str[i])) tmp += str[i];
+    else if (str[i] == '[') //包含需要解压的子串
+    {
+        string sub = substr(str, i); //取出后面的整个子串
+        tmp += f(sub); //将解压结果加入
+        i = i + sub.size() + 1; //i跳到'['所对应的右中括号处
+    }
+</code></pre>
+<p>最后将所得字符串重复 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span> 次即得 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 的解压结果。完整过程为：</p>
+<pre><code class="language-cpp">string f(string str) //解压字符串str
+{
+    int t = 0, N = 0;
+    while (isdigit(str[t]))
+    {
+        N = N * 10 + str[t] - '0';
+        t ++;
+    } //取出数字num
+
+    string res, tmp;
+
+    for (int i = t; i &lt; str.size(); i ++) //从数字后的第一个字符开始遍历
+        if (isalpha(str[i])) tmp += str[i];
+        else if (str[i] == '[')
+        {
+            string sub = substr(str, i); //取出需要解压的完整子串
+            tmp += f(sub);
+            i = i + sub.size() + 1; //i跳至该子串的末尾
+        }
+    
+    while (N --) res += tmp; //重复N遍
+    return res;
+}
+</code></pre>
+<p>注意：处理所给数据<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>t</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">Str</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> 与 解压<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>t</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">Str</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>中的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 是有略微区别的，因为题目所给的字符串前面并没有数字，而<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>总会以数字开头。因此主程序中对<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>t</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">Str</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>的处理不能直接使用所编写的解压函数。</p>
+<p>完整代码：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+using namespace std;
+
+string substr(string str, int t)
+{
+    string substring;
+
+    stack&lt;char&gt; op;
+    op.push(str[t]);
+    for (int i = t + 1; i &lt; str.size(); i ++)
+    {
+        if (str[i] == '[') op.push(str[i]);
+        else if (str[i] == ']' &amp;&amp; op.size() &gt; 1) op.pop();
+        else if (str[i] == ']' &amp;&amp; op.size() == 1) break;
+
+        substring += str[i];
+    }
+    
+    return substring;
+}
+string f(string str)
+{
+    int t = 0, N = 0;
+    while (isdigit(str[t]))
+    {
+        N = N * 10 + str[t] - '0';
+        t ++;
+    }
+
+    string res, tmp;
+
+    for (int i = t; i &lt; str.size(); i ++)
+        if (isalpha(str[i])) tmp += str[i];
+        else if (str[i] == '[')
+        {
+            string sub = substr(str, i);
+            tmp += f(sub);
+            i = i + sub.size() + 1;
+        }
+    
+    while (N --) res += tmp;
+    return res;
+}
+
+int main()
+{
+    string str, res;
+    cin &gt;&gt; str;
+
+    for (int i = 0; i &lt; str.size(); i ++)
+        if (isalpha(str[i])) res += str[i];
+        else if (str[i] == '[') 
+        {
+            string sub = substr(str, i);
+            res += f(sub);
+            i = i + sub.size() + 1;
+        }
+
+    cout &lt;&lt; res;
+    return 0;
+}
+</code></pre>
+<hr>
+<p>更加巧妙的代码：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+string read() //返回所读字符串的解压结果
+{
+    string res;
+    char c;
+    while (cin &gt;&gt; c) //每次读入一个字符
+        if (isalpha(c)) res += c;
+        else if (c == '[') 
+        {
+            int n; cin &gt;&gt; n; //读入数字
+            string sub = read(); //解压后面的字符串并加入结果
+            while (n --) res += sub; 
+        }
+        else if (c == ']') return res; //本层递归结束，回到上一层
+}
+
+int main()
+{
+    cout &lt;&lt; read();
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>模拟一下<code>AC[3FUN]</code> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>⟶</mo></mrow><annotation encoding="application/x-tex">\longrightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.522em;vertical-align:-0.011em;"></span><span class="mrel">⟶</span></span></span></span> <code>ACFUNFUNFUN</code>，好好体会上面的代码。</p>
+</blockquote>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shaoyihao.github.io/blog/基于递推的递归/" class="post-title gt-a-link">
+                    基于递推的递归
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ©All rights reserved
+    </div>
+    <!-- <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shaoyihao.github.io/blog//atom.xml" target="_blank">RSS</a></a>
+    </div> -->
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

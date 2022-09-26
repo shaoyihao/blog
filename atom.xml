@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://shaoyihao.github.io/blog/</id>
+    <title>SYH&apos;s Blog</title>
+    <updated>2022-09-26T14:55:43.256Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://shaoyihao.github.io/blog/"/>
+    <link rel="self" href="https://shaoyihao.github.io/blog/atom.xml"/>
+    <logo>https://shaoyihao.github.io/blog/images/avatar.png</logo>
+    <icon>https://shaoyihao.github.io/blog/favicon.ico</icon>
+    <rights>All rights reserved 2022, SYH&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[图像、视频的格式]]></title>
+        <id>https://shaoyihao.github.io/blog/图像、视频的格式/</id>
+        <link href="https://shaoyihao.github.io/blog/图像、视频的格式/">
+        </link>
+        <updated>2022-09-24T05:56:31.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一些标签(2)]]></title>
+        <id>https://shaoyihao.github.io/blog/一些html5标签/</id>
+        <link href="https://shaoyihao.github.io/blog/一些html5标签/">
+        </link>
+        <updated>2022-09-24T05:47:35.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一些标签(1)]]></title>
+        <id>https://shaoyihao.github.io/blog/一些html标签/</id>
+        <link href="https://shaoyihao.github.io/blog/一些html标签/">
+        </link>
+        <updated>2022-09-24T05:38:55.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于html]]></title>
+        <id>https://shaoyihao.github.io/blog/关于html/</id>
+        <link href="https://shaoyihao.github.io/blog/关于html/">
+        </link>
+        <updated>2022-09-24T05:33:16.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Windows下安装虚拟机：VMware+Ubuntu]]></title>
+        <id>https://shaoyihao.github.io/blog/VMware+Ubuntu/</id>
+        <link href="https://shaoyihao.github.io/blog/VMware+Ubuntu/">
+        </link>
+        <updated>2022-09-22T07:21:55.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Linux环境变量]]></title>
+        <id>https://shaoyihao.github.io/blog/Linux环境变量/</id>
+        <link href="https://shaoyihao.github.io/blog/Linux环境变量/">
+        </link>
+        <updated>2022-09-22T07:15:53.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[数列极限]]></title>
+        <id>https://shaoyihao.github.io/blog/数列极限/</id>
+        <link href="https://shaoyihao.github.io/blog/数列极限/">
+        </link>
+        <updated>2022-09-19T13:54:48.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于开源]]></title>
+        <id>https://shaoyihao.github.io/blog/关于开源/</id>
+        <link href="https://shaoyihao.github.io/blog/关于开源/">
+        </link>
+        <updated>2022-09-16T05:50:35.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[数制]]></title>
+        <id>https://shaoyihao.github.io/blog/数制/</id>
+        <link href="https://shaoyihao.github.io/blog/数制/">
+        </link>
+        <updated>2022-09-14T06:59:57.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[选出最多的数]]></title>
+        <id>https://shaoyihao.github.io/blog/选出最多的数/</id>
+        <link href="https://shaoyihao.github.io/blog/选出最多的数/">
+        </link>
+        <updated>2022-09-13T13:02:24.000Z</updated>
+    </entry>
+</feed>

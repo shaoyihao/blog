@@ -1,0 +1,200 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>递归与调用栈 | SYH&#39;s Blog</title>
+
+<link rel="shortcut icon" href="https://shaoyihao.github.io/blog//favicon.ico?v=1664201656961">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shaoyihao.github.io/blog//styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="https://shaoyihao.github.io/blog//images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            SYH&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/ " class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//archives" class="menu gt-a-link">
+                            时间轴
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/aboutme" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664201656961" action="https://shaoyihao.github.io/blog//search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    递归与调用栈
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-08-30 ·
+                    </time>
+                    
+                        <a href="https://shaoyihao.github.io/blog/403zHyzYL/" class="post-tags">
+                            # 递归
+                        </a>
+                    
+                        <a href="https://shaoyihao.github.io/blog/algo-theory/" class="post-tags">
+                            # 算法理论
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="调用栈">调用栈</h3>
+<p><strong>调用栈（Call Stack）<strong>描述的是函数之间的调用关系，它由多个</strong>栈帧（Stack Frame）<strong>组成。<strong>每个栈帧对应着一个未运行完的函数</strong>，栈帧中保存了该函数的</strong>返回地址</strong>和<strong>局部变量</strong>，因而不仅能在函数执行完毕后找到正确的返回地址，还很自然地保证了<strong>不同函数间的局部变量互不相干</strong>（因为不同函数对应着不同的栈帧）。</p>
+<blockquote>
+<p>在gdb可以用 <code>backtrace</code>(简称bt)命令打印所有栈帧信息。若要用<code>p</code>命令打印一个非当前栈帧的局部变量，可以用<code>frame</code>命令选择另一个栈帧。</p>
+</blockquote>
+<p>以一个简单的函数为例：</p>
+<pre><code class="language-python">def greet(name):
+    greet2(name)
+    bye()
+
+def greet2(name):
+	print &quot;how are you, &quot; + name + &quot;?&quot;
+    
+def bye():
+	print &quot;ok bye!&quot;
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h57l5kddhqj21l20t2q85.jpg" alt="" loading="lazy"></figure>
+<p>接下来再调用<code>greet2(&quot;maggie&quot;)</code>，同样，计算机也为这个函数调用分配一块内存（新建了一个栈帧），并且跳转到了函数开头处执行。</p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h57l76yi6mj21ia0aot9n.jpg" alt="" loading="lazy"></figure>
+<p>计算机使用一个<strong>栈</strong>来表示这些内存块，其中第二个内存块位于第一个内存块上面。</p>
+<p><code>greet2(&quot;maggie&quot;)</code>调用完后，<strong>栈顶的内存块被弹出</strong>。</p>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h57l8k43lzj21do0d43zo.jpg" alt="" loading="lazy"></figure>
+<p>此时栈顶的内存块是函数<code>greet</code>的，这意味着现在返回到了函数<code>greet</code>。当调用函数<code>greet2</code>时，函数<code>greet</code>只执行了一部分。<strong>调用下层函数时，当前函数暂停并处于未完成状态，该函数的所有变量的值都还在内存中</strong>。执行完函数<code>greet2</code>后，回到函数<code>greet</code>，此时会<strong>从离开的地方接着往下执行</strong>：调用函数<code>bye</code>。</p>
+<p>在栈顶添加函数<code>bye</code>的内存块：</p>
+<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h57lcci1fej21880ak74w.jpg" alt="" loading="lazy"></figure>
+<p>执行完<code>bye</code>后，又回到<code>greet</code>函数。此时由于没有别的事情要做，函数<code>greet</code>执行结束，退出。</p>
+<h3 id="递归与递归调用栈">递归与递归调用栈</h3>
+<p>递归函数就是不断调用自身，因此也运用到了调用栈。在C语言的函数中，<strong>调用自己和调用其他函数并没有任何本质区别</strong>，都是建立新栈帧，传递参数并修改当前代码行。在函数体执行完毕后删除栈帧，处理返回值并修改当前代码行。</p>
+<p>以求阶乘的函数<code>fact(3)</code>为例：</p>
+<pre><code class="language-python">def fact(x):
+    if (x == 1) return 1
+	return x * fact(x - 1)
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h57o3tkcvkj21c80muac9.jpg" alt="" loading="lazy"></figure>
+<p>执行过程：</p>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h57o5gkeu9j20j40xojt2.jpg" width=300px>
+<p>每个<code>fact</code>调用都有自己的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>变量，在一个函数调用中不能访问另一个的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>变量。</p>
+<p>使用栈虽然很方便，但是也要付出代价：存储详尽的信息<strong>可能占用大量的内存</strong>。因为每个函数调用都要占用一定的内存，<strong>如果递归层数很多，则栈很高</strong>，计算机就需要存储大量函数调用的信息。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shaoyihao.github.io/blog/P与NP/" class="post-title gt-a-link">
+                    NP完全理论
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ©All rights reserved
+    </div>
+    <!-- <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shaoyihao.github.io/blog//atom.xml" target="_blank">RSS</a></a>
+    </div> -->
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

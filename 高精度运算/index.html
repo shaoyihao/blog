@@ -1,0 +1,489 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>高精度运算 | SYH&#39;s Blog</title>
+
+<link rel="shortcut icon" href="https://shaoyihao.github.io/blog//favicon.ico?v=1664201656961">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shaoyihao.github.io/blog//styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="https://shaoyihao.github.io/blog//images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            SYH&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/ " class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//archives" class="menu gt-a-link">
+                            时间轴
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/aboutme" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664201656961" action="https://shaoyihao.github.io/blog//search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    高精度运算
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-09-06 ·
+                    </time>
+                    
+                        <a href="https://shaoyihao.github.io/blog/O4BIFblmXJ/" class="post-tags">
+                            # 模板
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>将大整数的每一位存入数组，数组的<strong>第0位存个位</strong>。因为如果发生进位的话，在数组的末尾添上一位较为容易。</p>
+<p>此处A, B均为正数。</p>
+<h3 id="2个大整数之间的比较字符串">2个大整数之间的比较（字符串）</h3>
+<pre><code class="language-cpp">bool cmp(string &amp;A, string &amp;B) // A &lt; B 时返回true         （使用引用传递只是为了效率更高）
+{
+    if (A.size() != B.size()) return A.size() &lt; B.size();
+    for (int i = 0; i &lt; (int)A.size() - 1; i ++)
+        if (A[i] != B[i]) return A[i] &lt; B[i];
+    return false;
+}
+</code></pre>
+<p>或者直接使用字符串函数：</p>
+<pre><code class="language-cpp">bool cmp(char A[], char B[])  // A &lt; B 时返回true
+{
+    if (strlen(A) != strlen(B)) return strlen(A) &lt; strlen(B);
+    return strcmp(A, B) &lt; 0;
+}
+</code></pre>
+<h3 id="高精度加法">高精度加法</h3>
+<figure data-type="image" tabindex="1"><img src="https://shaoyihao.github.io/blog//post-images/1662461092382.png" alt="" loading="lazy"></figure>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; add(vector&lt;int&gt; &amp;A, vector&lt;int&gt; &amp;B)//返回值为一个vector容器（即数组） 
+{
+	vector&lt;int&gt; res;
+	int t = 0;//进位初始值为0 
+	for (int i = 0; i &lt; A.size() || i &lt; B.size(); i ++)//但运算还未结束时，继续循环 
+	{
+		if (i &lt; A.size()) t += A[i];
+		if (i &lt; B.size()) t += B[i];//即：t = t+A[i]+B[i]，A[i]或B[i]可能不存在，因此使用if语句判断 
+		res.push_back(t % 10);//取模后存入答案数组 
+		t /= 10;//算出进位值：0或1 
+	}
+	if (t) res.push_back(1);//如果最后还进位了1，则数组需要添一位1 
+	return res;//得到的是倒着存放着的答案（A和B本身也是倒着存着的，因此所得结果也是倒着存的） 
+}
+int main()
+{
+	string a, b;
+	cin &gt;&gt; a &gt;&gt; b;//用字符串的形式读入两个高精度的数 
+	
+	vector&lt;int&gt; A, B;//再将高精度数存入数组 
+	for (int i = a.size() - 1; i &gt;= 0; i --) A.push_back(a[i] - '0');//注意将字符串倒着存入数组，数组的第0位存个位，低位存低位 
+	for (int i = b.size() - 1; i &gt;= 0; i --) B.push_back(b[i] - '0');
+	
+	auto C = add(A, B);//将结果存入一个新的数组 
+	
+	for (int i = C.size() - 1; i &gt;= 0; i --) printf(&quot;%d&quot;, C[i]);//倒着将数组输出 
+	return 0;
+}
+</code></pre>
+<h3 id="高精度减法">高精度减法</h3>
+<figure data-type="image" tabindex="2"><img src="https://shaoyihao.github.io/blog//post-images/1662461113030.png" alt="" loading="lazy"></figure>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+//判断是否有： A &gt;= B 
+bool cmp(vector&lt;int&gt; &amp;A, vector&lt;int&gt; &amp;B)//比较两个大数，（数组的比较） 
+{
+	if (A.size() != B.size()) return A.size() &gt; B.size(); //先通过位数判断，位数多的，该数就较大 
+	for (int i = A.size() - 1; i &gt;= 0; i --)//从高位开始比，直到找到某一位不同为止 
+		if (A[i] != B[i]) return A[i] &gt; B[i];
+	return true;//所有位均相同，即两个数组相同，大数相等 
+}
+vector&lt;int&gt; Sub(vector&lt;int&gt; &amp;A, vector&lt;int&gt; &amp;B)
+{
+	vector&lt;int&gt; res;
+	
+	int t = 0, c;//t表示借位（个位运算不会被借位，因此初始化为0）
+	for (int i = 0; i &lt; A.size(); i ++)//A&gt;B，因此最后结果数组的位数就是A的位数 
+	{
+		if (i &lt; B.size()) c = A[i] - B[i] - t;
+        else c = A[i] - t;
+        res.push_back((c + 10) % 10);
+        
+		if (c &lt; 0) t = 1;
+		else t = 0;
+	}
+	while (res.size() &gt; 1 &amp;&amp; res.back() == 0) res.pop_back();//去除前导0 
+	
+	return res;
+}
+int main()
+{
+	string a, b;
+	cin &gt;&gt; a &gt;&gt; b;//先用字符串读入大数 
+	vector&lt;int&gt; A, B;
+	for (int i = a.size() - 1; i &gt;= 0; i --) A.push_back(a[i] - '0');//再将大数倒着存入数组 
+	for (int i = b.size() - 1; i &gt;= 0; i --) B.push_back(b[i] - '0');
+	
+	if (cmp(A, B))//判断A是否大于B 
+	{
+		auto C = Sub(A, B);
+		for (int i = C.size() - 1; i &gt;= 0; i --) printf(&quot;%d&quot;, C[i]);//倒着输出
+	}
+	else
+	{
+		auto C = Sub(B, A);//如果A&lt;B，则结果为：-（B-A)
+		
+		printf(&quot;-&quot;);//前面补一个负号
+		for (int i = C.size() - 1; i &gt;= 0; i --) printf(&quot;%d&quot;, C[i]);
+	}
+	return 0;
+}
+</code></pre>
+<p>另一种写法：</p>
+<pre><code class="language-python">vector&lt;int&gt; sub(vector&lt;int&gt; &amp;A, vector&lt;int&gt; &amp;B)
+{
+    vector&lt;int&gt; res;
+    int t = 0;
+    for (int i = 0; i &lt; A.size(); i ++)
+        if (i &lt; B.size()) 
+        {
+            res.push_back((A[i] - B[i] - t + 10) % 10);
+            if (A[i] - B[i] - t &lt; 0) t = 1;
+            else t = 0;
+        }
+        else 
+        {
+            res.push_back((A[i] - t + 10) % 10);
+            if (A[i] - t &lt; 0) t = 1;
+            else t = 0;
+        }
+
+    while (res.size() &gt; 1 &amp;&amp; res.back() == 0) res.pop_back();
+    return res;
+}
+</code></pre>
+<h3 id="高精度乘法">高精度乘法</h3>
+<h4 id="大数一般数">大数×一般数</h4>
+<figure data-type="image" tabindex="3"><img src="https://shaoyihao.github.io/blog//post-images/1662461124684.png" alt="" loading="lazy"></figure>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; Mul(vector&lt;int&gt; &amp;A, int b)
+{
+	vector&lt;int&gt; res;
+	int t = 0;//进位 
+	for (int i = 0; i &lt; A.size() || t; i ++)//在A各位还没乘完或者进位t还没有处理完时，循环继续 
+	{
+		if (i &lt; A.size()) t = A[i] * b + t; //在A各位还没乘完的情况 
+		res.push_back(t % 10);
+		t /= 10;
+	}
+	/*也可以这样写 
+	for (int i = 0; i &lt; A.size(); i ++)//在A各位还没乘完的情况 
+	{
+		t = A[i] * b + t;
+		res.push_back(t % 10);
+		t /= 10;
+	}
+	while (t != 0) //进位t还没有处理完的情况 
+	{
+		res.push_back(t % 10);
+		t /= 10;
+	}
+	*/
+	while (res.size() &gt; 1 &amp;&amp; res.back() == 0) res.pop_back();//去除前导0。处理积为0的情况，若不进行处理，结果可能为0000000
+	return res;
+}
+int main()
+{
+	string a;
+	int b;
+	cin &gt;&gt; a &gt;&gt; b;
+	
+	vector&lt;int&gt; A;
+	for (int i = a.size() - 1; i &gt;= 0; i --) A.push_back(a[i] - '0');
+	
+	auto C = Mul(A, b);
+	
+	for (int i = C.size() - 1; i &gt;= 0; i --) printf(&quot;%d&quot;, C[i]);
+	return 0;
+}
+</code></pre>
+<h5 id="应用求阶乘">应用：求阶乘</h5>
+<pre><code class="language-cpp">vector&lt;int&gt; f[N];
+
+f[0] = vector&lt;int&gt;(1, 1); // 0! = 1
+for (int i = 1; i &lt;= 1000; i ++) f[i] = mul(f[i - 1], i);
+</code></pre>
+<h4 id="大数大数">大数×大数</h4>
+<p>更一般的，整个乘法过程进行分析：</p>
+<figure data-type="image" tabindex="4"><img src="https://shaoyihao.github.io/blog//post-images/1662709707346.jpeg" alt="" loading="lazy"></figure>
+<p>可见不考虑进位的情况下，<strong>乘数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>的第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 位 与乘数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>的第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span> 位 的积 只对结果的第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>+</mo><mi>j</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i+j-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 位有贡献</strong>。若从下标0开始存储，则 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>×</mo><mi>B</mi><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">A[i]\times B[j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span> 将是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>[</mo><mi>i</mi><mo>+</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">C[i+j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span> 的一部分，即：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>[</mo><mi>i</mi><mo>+</mo><mi>j</mi><mo>]</mo><mo>=</mo><mtext> </mtext><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>+</mo><mi>A</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>×</mo><mi>B</mi><mo>[</mo><mi>j</mi><mo>]</mo><mo>+</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">C[i + j] =\ ...+ A[i]\times B[j]+...
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace"> </span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">A</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.10556em;vertical-align:0em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span></span></span></span></span></p>
+<blockquote>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo>)</mo><mo>⟶</mo><mi>C</mi><mo>[</mo><mi>i</mi><mo>+</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">(i,j)\longrightarrow C[i+j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟶</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>，这是一个<strong>单射</strong>关系。</p>
+</blockquote>
+<pre><code class="language-cpp">for (int i = 0; i &lt; a.size(); i ++)
+    for (int j = 0; j &lt; b.size(); j ++)
+        C[i + j] += A[i] * B[j];
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://shaoyihao.github.io/blog//post-images/1662709715904.png" alt="" loading="lazy"></figure>
+<pre><code class="language-cpp">for (int i = 0; i &lt; a.size() + b.size() - 1; i ++) //从最低位开始
+    if (C[i] &gt; 9)
+    {
+        C[i + 1] += C[i] / 10;
+        C[i] %= 10;
+    }
+</code></pre>
+<p>由于相乘最后可能会有进位，因此 <strong><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 位数 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 位数相乘得到的结果可能是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>+</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">n+m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 位的</strong>。</p>
+<p>去除前导零：</p>
+<pre><code class="language-cpp">int len = a.size() + b.size();
+while (C[len - 1] == 0 &amp;&amp; len &gt; 1) len --; //去除前导零（最高位为0即去除）
+// for (int i = len - 1; i &gt;= 0; i --) cout &lt;&lt; C[i]; 倒着输出结果
+</code></pre>
+<p>完整代码：</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+const int N = 10010;
+int A[N], B[N], C[N];
+
+int main()
+{
+    string a, b;
+    cin &gt;&gt; a &gt;&gt; b;        
+    for (int i = 0; i &lt; a.size(); i ++) A[i] = a[a.size() - 1 - i] - '0';
+    for (int i = 0; i &lt; b.size(); i ++) B[i] = b[b.size() - 1 - i] - '0';
+
+    for (int i = 0; i &lt; a.size(); i ++)
+        for (int j = 0; j &lt; b.size(); j ++)
+            C[i + j] += A[i] * B[j];
+
+    for (int i = 0; i &lt; a.size() + b.size() - 1; i ++) //从最低位开始
+        if (C[i] &gt; 9)
+        {
+            C[i + 1] += C[i] / 10;
+            C[i] %= 10;
+        }
+
+    int len = a.size() + b.size();
+    while (C[len - 1] == 0 &amp;&amp; len &gt; 1) len --; //去除前导零（最高位为0即去除）
+    
+    for (int i = len - 1; i &gt;= 0; i --) cout &lt;&lt; C[i];
+    return 0;
+}
+</code></pre>
+<p>另一种写法：</p>
+<pre><code class="language-cpp">vector&lt;int&gt; mul(vector&lt;int&gt; &amp;A, vector&lt;int&gt; &amp;B)
+{
+    vector&lt;int&gt; res = vector&lt;int&gt;(A.size() + B.size(), 0);
+    
+    for (int i = 0; i &lt; A.size(); i ++)
+        for (int j = 0; j &lt; B.size(); j ++)
+            res[i + j] += A[i] * B[j];
+    
+    for (int i = 0; i &lt; A.size() + B.size() - 1; i ++)
+        if (res[i] &gt; 9)
+        {
+            res[i + 1] += res[i] / 10;
+            res[i] %= 10;
+        }
+    
+    while (res.size() &gt; 1 &amp;&amp; res.back() == 0) res.pop_back();
+    return res;
+}
+</code></pre>
+<h3 id="高精度除法">高精度除法</h3>
+<figure data-type="image" tabindex="6"><img src="https://shaoyihao.github.io/blog//post-images/1662461133653.png" alt="" loading="lazy"></figure>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+vector&lt;int&gt; Div(vector&lt;int&gt; &amp;A, int b, int &amp;r)//以引用的形式传入余数，主函数中同时得到修改 
+{
+	vector&lt;int&gt; res;
+	r = 0;//余数 
+	for (int i = A.size() - 1; i &gt;= 0; i --)//从被除数的最高位开始处理 
+	{
+		int c = r * 10 + A[i];//余数与子被除数的关系 
+		res.push_back(c / b);
+		r = c % b;
+	}
+	reverse(res.begin(), res.end());//由于主函数中会逆序输出，此处虽顺序是正确的，但也先配合主函数，逆序翻转一下 
+	while (res.size() &gt; 1 &amp;&amp; res.back() == 0) res.pop_back();//去除前导0 
+	return res;
+}
+int main()
+{
+	string a;
+	int b, r;
+	cin &gt;&gt; a &gt;&gt; b;
+	vector&lt;int&gt; A;
+	for (int i = a.size() - 1; i &gt;= 0; i --) A.push_back(a[i] - '0');
+	auto C = Div(A, b, r);
+	for (int i = C.size() - 1; i &gt;= 0; i --) printf(&quot;%d&quot;, C[i]);
+	printf(&quot;\n%d&quot;, r);
+	return 0;	
+}
+</code></pre>
+<p>如果不考虑与前面几种运算的配合，还可以写为：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;deque&gt;
+using namespace std;
+
+deque&lt;int&gt; Div(deque&lt;int&gt; &amp;A, int b, int &amp;r)
+{
+	deque&lt;int&gt; res;
+	r = 0;//余数 
+	for (int i = 0; i &lt; A.size(); i ++)//从被除数的最高位开始处理 
+	{
+		r = r * 10 + A[i];//余数与子被除数的关系 
+		res.push_back(r / b);
+		r %= b;
+	}
+	while (res.size() &gt; 1 &amp;&amp; res.front() == 0) res.pop_front();
+	return res;
+}
+int main()
+{
+	string a;
+	int b, r;
+	cin &gt;&gt; a &gt;&gt; b;
+	deque&lt;int&gt; A;
+	for (int i = 0; i &lt; a.size(); i ++) A.push_back(a[i] - '0');
+	auto C = Div(A, b, r);
+	for (int i = 0; i &lt; C.size(); i ++) printf(&quot;%d&quot;, C[i]);
+	printf(&quot;\n%d&quot;, r);
+	return 0;	
+}
+</code></pre>
+<h3 id="压位">压位？？？</h3>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shaoyihao.github.io/blog/结构体的排序规则/" class="post-title gt-a-link">
+                    结构体的排序规则
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ©All rights reserved
+    </div>
+    <!-- <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shaoyihao.github.io/blog//atom.xml" target="_blank">RSS</a></a>
+    </div> -->
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

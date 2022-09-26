@@ -1,0 +1,330 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>二分查找 | SYH&#39;s Blog</title>
+
+<link rel="shortcut icon" href="https://shaoyihao.github.io/blog//favicon.ico?v=1664201656961">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shaoyihao.github.io/blog//styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="https://shaoyihao.github.io/blog//images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            SYH&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/ " class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//archives" class="menu gt-a-link">
+                            时间轴
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/aboutme" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664201656961" action="https://shaoyihao.github.io/blog//search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    二分查找
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-09-07 ·
+                    </time>
+                    
+                        <a href="https://shaoyihao.github.io/blog/LksFlx0sM/" class="post-tags">
+                            # 二分
+                        </a>
+                    
+                        <a href="https://shaoyihao.github.io/blog/O4BIFblmXJ/" class="post-tags">
+                            # 模板
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>二分本质上就是<strong>在一个区间中查找一个数</strong>，方式为：不断缩小查找的区间，缩小区间时根据的是：该数所满足的命题。<br>
+注意<strong>二分的区间只要包含正确答案即可，即所二分的区间不是唯一的（大一点较稳妥），根据题目而定</strong>。</p>
+<blockquote>
+<p>例如求一个数x的平方根时，就要保证二分区间的右端点不小于x+1。因为当x = 0.01时，会出现开方后为0.1，此时就超出了区间[ 0, x ]</p>
+</blockquote>
+<p>解题的关键思路在于弄明白：</p>
+<ul>
+<li>要查找的对象是什么</li>
+<li>查找范围是什么（<strong>估计答案的范围</strong>）</li>
+<li>查找对象的所满足的关系式是什么，是否具有<strong>单调性</strong>，将其扩展为两个对立的命题，使查找对象处于命题的边界（该命题就是mid的check条件）</li>
+</ul>
+<p>关键点往往在于：<strong>明确<code>check(mid)</code>函数什么时候为真，什么时候为假</strong>。</p>
+<p>二分查找的 <mark><strong>命题的边界值</strong></mark>，若原数组中本就不存在所要查找的满足命题<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span>的元素，则二分找到的元素就是<strong>距离最近的</strong>满足<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">Q</span></span></span></span>的元素。</p>
+<blockquote>
+<p>有单调性的数列一定可以二分，没有单调性的数列也有可能可以二分。</p>
+</blockquote>
+<h1 id="1整数二分">1，整数二分</h1>
+<p><img src="https://shaoyihao.github.io/blog//post-images/1662538616911.png" alt="" loading="lazy"><br>
+<strong>模板</strong>：</p>
+<pre><code class="language-cpp">int l, r, mid;
+while (l &lt; r)
+{
+	mid = (l + r) / 2;
+	if (check(mid)) r = mid;  //r = mid与mid = (l + r) / 2 相对应
+	else l = mid + 1;  //l比r大1
+}
+</code></pre>
+<pre><code class="language-cpp">int l, r, mid;
+while (l &lt; r)
+{
+	mid = (l + r + 1) / 2;
+	if (check(mid)) l = mid;  //l = mid与mid = (l + r + 1) / 2 相对应
+	else r = mid - 1;  //l比r大1
+}
+</code></pre>
+<h3 id="例题1-找出数组中某数第一次出现和最后一次出现的位置">例题1 找出数组中某数第一次出现和最后一次出现的位置</h3>
+<blockquote>
+<p><a href="https://www.acwing.com/problem/content/791/">原题链接：数的范围</a></p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="https://shaoyihao.github.io/blog//post-images/1662538729846.png" alt="" loading="lazy"></figure>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+const int N = 100010;
+int q[N];
+int n, m;
+
+int main()
+{
+    scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+    for (int i = 0; i &lt; n; i ++) scanf(&quot;%d&quot;, &amp;q[i]);
+    while (m --)
+    {
+        int k;
+        scanf(&quot;%d&quot;, &amp;k);
+        int l = 0, r = n - 1, mid;  //二分查找第一次出现的k
+        while (l &lt; r)
+        {
+            mid = (l + r) / 2;
+            if (q[mid] &gt;= k) r = mid;
+            else l = mid + 1;
+        }
+        if (q[l] != k)
+        {
+            printf(&quot;-1 -1\n&quot;);
+            continue;
+        }
+        else printf(&quot;%d &quot;, l);
+        
+        l = 0, r = n - 1;  //二分查找最后一次出现的k
+        while (l &lt; r)
+        {
+            mid = (l + r + 1) / 2;
+            if (q[mid] &lt;= k) l = mid;
+            else r = mid - 1;
+        }
+        printf(&quot;%d\n&quot;, l);
+    }
+    return 0;
+}
+</code></pre>
+<h1 id="2浮点数二分">2，浮点数二分</h1>
+<p>浮点数二分就不存在边界的问题了，因此简单许多。</p>
+<pre><code class="language-cpp">int l, r, mid;
+while (r - l &gt; 1e-8)  //注意循环结束的条件，区间很小时，视作l==r
+//也可写为：for (int i = 0; i &lt; 100; i ++)  即不管三七二十一，直接循环100次，此时的区间长度已经非常非常小了
+{
+	mid = (l + r) / 2;
+	if (check(mid)) l = mid;
+	else r = mid;  //直接将l换成r即可
+}
+</code></pre>
+<h3 id="例题1-求平方根">例题1 求平方根</h3>
+<figure data-type="image" tabindex="2"><img src="https://shaoyihao.github.io/blog//post-images/1662538744413.png" alt="" loading="lazy"></figure>
+<pre><code class="language-cpp">int main()
+{
+    double x;
+    scanf(&quot;%lf&quot;, &amp;x);
+    double l = 0, r = x + 1;  //确保r&gt;=1 !!!!!!
+    while (r - l &gt; 1e-8)
+    {
+        double mid = (l + r) / 2;
+        if (mid * mid &lt;= x) l = mid;
+        else r = mid;
+    }
+    printf(&quot;%lf&quot;, l);
+    return 0;
+}
+</code></pre>
+<h3 id="例题2求立方根">例题2，求立方根</h3>
+<blockquote>
+<p><a href="https://www.acwing.com/problem/content/792/">原题链接：数的3次方根</a></p>
+</blockquote>
+<p>代码一：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    double n;
+    scanf(&quot;%lf&quot;, &amp;n);
+    double l = -100, r = 100, mid;  //根据数据范围估计立方根的范围，直接在该范围内搜索
+    for (int i = 0; i &lt; 100; i ++)  //不管三七二十一，直接循环100次，此时误差也已经很小了
+    {
+        mid = (l + r) / 2;
+        if (mid * mid * mid &lt;= n) l = mid;
+        else r = mid;
+    }
+    printf(&quot;%lf&quot;, l);
+    return 0;
+}
+</code></pre>
+<p>代码二：</p>
+<pre><code class="language-cpp">int main()
+{
+    double n;
+    cin &gt;&gt; n;
+    
+    double l = -25, r = 25, mid;
+    while (r - l &gt; 1e-8)
+    {
+        mid = (l + r) / 2;
+        if (mid * mid * mid &lt; n) l = mid;
+        else r = mid;
+    }
+    printf(&quot;%.6f&quot;, mid);
+    return 0;
+}
+</code></pre>
+<h1 id="3lower_bound与upper_bound">3，lower_bound与upper_bound</h1>
+<p>lower_bound 和 upper_bound 都是STL中的函数，在<code>algorithm</code>库中，这两个函数的原理均是二分查找。</p>
+<ul>
+<li><code>lower_bound</code></li>
+</ul>
+<p>lower_bound 可以在区间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">[l, r)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">)</span></span></span></span>（左闭右开）中二分查找，返回<strong>指向第一个 <mark>大于等于 x</mark>的元素位置的下标（或迭代器）</strong>。</p>
+<p>用法：</p>
+<pre><code class="language-cpp">sort(q, q + n);  //先排序
+int pos1 = lower_bound(q, q + n, x) - q;   //x为待查元素
+int pos2 = lower_bound(q.begin(), q.end(), x) - q.begin();
+</code></pre>
+<ul>
+<li><code>upper_bound</code></li>
+</ul>
+<p>upper_bound 返回<strong>第一个<mark>大于</mark>x的元素的下标（或迭代器）</strong></p>
+<pre><code class="language-cpp">sort(q, q + n);  //先排序
+int pos1 = upper_bound(q, q + n, x) - q;   //x为待查元素
+int pos2 = upper_bound(q.begin(), q.end(), x) - q.begin();
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shaoyihao.github.io/blog/拼数/" class="post-title gt-a-link">
+                    拼数
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ©All rights reserved
+    </div>
+    <!-- <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shaoyihao.github.io/blog//atom.xml" target="_blank">RSS</a></a>
+    </div> -->
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

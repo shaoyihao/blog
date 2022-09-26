@@ -1,0 +1,298 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>结构体的排序规则 | SYH&#39;s Blog</title>
+
+<link rel="shortcut icon" href="https://shaoyihao.github.io/blog//favicon.ico?v=1664201656961">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shaoyihao.github.io/blog//styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="https://shaoyihao.github.io/blog//images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            SYH&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/ " class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//archives" class="menu gt-a-link">
+                            时间轴
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog//tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="https://shaoyihao.github.io/blog/aboutme" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664201656961" action="https://shaoyihao.github.io/blog//search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    结构体的排序规则
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-09-06 ·
+                    </time>
+                    
+                        <a href="https://shaoyihao.github.io/blog/C8jTnsHs8/" class="post-tags">
+                            # 排序
+                        </a>
+                    
+                        <a href="https://shaoyihao.github.io/blog/O4BIFblmXJ/" class="post-tags">
+                            # 模板
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>在实际生活中进行排序时往往需要考虑多个<strong>关键字</strong>，体现在程序中就是2个<strong>结构体元素之间的比较规则</strong>。</p>
+<p><strong>当确定比较规则之后，可以直接调用<code>sort</code>函数对整个结构体数组进行排序。</strong></p>
+<p>举个例子：对于以下结构体，排序规则为：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span>越大的结构体元素越大</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span>相同时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span>越大的结构体元素越大</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo separator="true">,</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a,b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span></span></span></span>均相同时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span>越小的结构体元素越大</li>
+</ul>
+<pre><code class="language-cpp">struct SS
+{
+    int a, b, c;
+};
+SS s[N];
+</code></pre>
+<p>实现方式有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>种：</p>
+<h3 id="运算符重载">运算符重载</h3>
+<pre><code class="language-cpp">struct SS
+{
+    int a, b, c;
+    
+    bool operator&lt;(const SS B) const  //满足什么条件时 x &lt; B 为真
+    {
+        if (a != B.a) return a &lt; B.a;
+        if (b != B.b) return b &lt; B.b;
+        return !(c &lt; B.c)
+	}
+};
+
+sort(s, s + n);
+</code></pre>
+<h3 id="cmp比较函数">cmp比较函数</h3>
+<pre><code class="language-cpp">bool cmp(SS A, SS B) //满足什么条件时 A &lt; B 为真，用于从小到大排序
+{
+    if (A.a != B.a) return A.a &lt; B.a;
+    if (A.b != B.b) return A.b &lt; B.b;
+    return !(A.c &lt; B.c);
+}
+
+sort(s, s + n, cmp);  //从小到大排序
+</code></pre>
+<pre><code class="language-cpp">bool cmp(SS A, SS B) //满足什么条件时 A &gt; B 为真，用于从大到小排序
+{
+
+}
+
+sort(s, s + n, cmp);  //从大到小排序
+</code></pre>
+<p>需要注意的是：<code>sort()</code>是不稳定排序。如果要使相等的项的输出顺序与输入顺序相同，则使用<code>sort</code>可能会导致错误结果。解决方法有2种：</p>
+<ul>
+<li>在结构体中添加一个属性<code>id</code>，记录输入时的顺序</li>
+<li>使用<code>stable_sort()</code>，这是稳定的排序</li>
+</ul>
+<hr>
+<blockquote>
+<p><a href="https://www.luogu.com.cn/problem/P1093">例题1</a></p>
+</blockquote>
+<p>AC代码：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+const int N = 310;
+struct Score
+{
+    int id;
+    int a, b, c;
+    int sum;
+
+    bool operator&lt;(const Score B) const
+    {
+        if (sum != B.sum) return sum &lt; B.sum;
+        if (a != B.a) return a &lt; B.a;
+        return !(a &lt; B.a);
+    }
+};
+Score s[N];
+
+int main()
+{
+    int n;
+    cin &gt;&gt; n;
+    for (int i = 1; i &lt;= n; i ++) 
+    {
+        s[i].id = i;
+        cin &gt;&gt; s[i].a &gt;&gt; s[i].b &gt;&gt; s[i].c;
+        s[i].sum = s[i].a + s[i].b + s[i].c;
+    }
+
+    sort(s + 1, s + n + 1); //从小到大排序
+
+    for (int i = n, t = 0; t &lt; 5; t ++, i --) //输出分数最高的5名
+        cout &lt;&lt; s[i].id &lt;&lt; ' ' &lt;&lt; s[i].sum &lt;&lt; endl;
+    
+    return 0;
+}
+</code></pre>
+<hr>
+<blockquote>
+<p><a href="https://www.luogu.com.cn/problem/P1104">例题2</a></p>
+</blockquote>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+const int N = 110;
+
+struct Person
+{
+    string name;
+    int year, month, day, id;
+
+    bool operator&lt;(const Person &amp;P) const
+    {
+        if (year != P.year) return !(year &lt; P.year);
+        if (month != P.month) return !(month &lt; P.month);
+        if (day != P.day) return !(day &lt; P.day);
+        return id &lt; P.id;
+    }
+};
+Person q[N];
+
+int main()
+{
+    int n;
+    cin &gt;&gt; n;
+    for (int i = 0; i &lt; n; i ++) 
+    {
+        cin &gt;&gt; q[i].name &gt;&gt; q[i].year &gt;&gt; q[i].month &gt;&gt; q[i].day;
+        q[i].id = i;
+    }
+    sort(q, q + n);
+
+    for (int i = n - 1; i &gt;= 0; i --) cout &lt;&lt; q[i].name &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shaoyihao.github.io/blog/去重/" class="post-title gt-a-link">
+                    去重
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        ©All rights reserved
+    </div>
+    <!-- <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shaoyihao.github.io/blog//atom.xml" target="_blank">RSS</a></a>
+    </div> -->
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
